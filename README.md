@@ -4,6 +4,12 @@
 
 1. 搭建 Python Django 后端框架
 
+   安装 django 即可（应该）
+
+   ```shell
+   pip install django
+   ```
+
 2. 数据库选择 postgresql，但由于代码的兼容性，在开发阶段可以使用sqlite3代替（不用安装数据库），只需要将 mysite/settings.py 中的DATABASES改成：
 
    ```python
