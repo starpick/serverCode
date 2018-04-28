@@ -1,4 +1,4 @@
-[TOC]
+
 
 ## 第一阶段
 
@@ -23,3 +23,42 @@
    - Urlconf: starpick/urls
    - 请求处理：starpick/handlers 文件夹
      - 认证请求：starpick/handlers/AuthenticationHandler.py
+
+5. 注意事项
+
+   由于 Django 的安全机制，在客户端发出 post 请求时，需要进行 CSRF防御机制
+
+   防御机制太麻烦了 cut down 先
+
+6. 运行
+
+   在根目录下：python manage.py runserver
+
+   如懒得装数据库就把数据库改成sqlite
+
+7. 客户端交互
+
+   地址：
+
+   - 注册：http://127.0.0.1:8000/starpick/register
+   - 登录：http://127.0.0.1:8000/starpick/login
+
+   需要提交内容：
+
+   user
+
+   password
+
+   用post方法提交form类型数据
+
+   像这样：
+
+   ```javascript
+   var postdata = new FormData()
+   postdata.append('user', 'abc')
+   postdata.append('password', 'hahaha')
+   ```
+
+   为什么不用 json 呢？因为Django 解析起来太麻烦了（不是懒得找api）
+
+   ​
