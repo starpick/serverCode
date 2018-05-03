@@ -8,6 +8,9 @@
 
    ```shell
    pip install django
+   # 为了实现跨域
+   pip install django-cors-middleware
+   pip install django-cors-headers
    ```
 
 2. 数据库选择 postgresql，但由于代码的兼容性，在开发阶段可以使用sqlite3代替（不用安装数据库），只需要将 mysite/settings.py 中的DATABASES改成：
