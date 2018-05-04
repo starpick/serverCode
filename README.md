@@ -45,6 +45,12 @@
 
    如懒得装数据库就把数据库改成sqlite
 
+   为了创建数据库，需要在根目录下运行命令：
+
+   ```shell
+   python manage.py migrate
+   ```
+
 7. 客户端交互
 
    地址：
