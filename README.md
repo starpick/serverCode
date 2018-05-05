@@ -76,4 +76,28 @@
 
    为什么不用 json 呢？因为Django 解析起来太麻烦了（不是懒得找api）
 
+   服务端返回数据：
+
+   register、login均返回json数据：
+
+   1. 请求不完整
+
+      状态码：400
+
+      信息：`{"success": false, "error": "bad request"}`
+
+   2. 注册时用户已注册、登录时用户不存在或密码错误
+
+      状态码：200
+
+      信息：`{"success": false, "error": "..."}`
+
+   3. 成功
+
+      状态码：200
+
+      信息：`{"success": true}`
+
+   ​
+
    ​

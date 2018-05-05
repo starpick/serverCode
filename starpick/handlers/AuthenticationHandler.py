@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from ..models import User
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -8,6 +8,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 user_key = 'user'
 password_key = 'password'
+success = 'success'
+error = 'error'
+
+def toJson(dic):
+    return json.dumps(dic)
 
 # 处理用户注册
 @csrf_exempt
@@ -23,15 +28,18 @@ def register(request):
         username = Info[user_key]
         password = Info[password_key]
     else:
-        return HttpResponse('register fail', content_type="text/plain")
+        response.content = toJson({success: False})
+        response.status_code = 400
+        return response
     # 用户是否已经存在，若存在，拒绝请求
     user = User.objects.filter(user_name=username)
     if (user.exists()):
-        return HttpResponse('register fail: user exists', content_type="text/plain")
+        response.content = toJson({success: False, error: 'register fail: user exists'})
+        return response
     # 创建新用户并保存入数据库
     newUser = User(user_name = username, password = password)
     newUser.save()
-    response.content = 'register'
+    response.content = toJson({success: True})
     return response
 
 # 处理用户登录
@@ -47,12 +55,15 @@ def login(request):
         password = Info[password_key]
     else:
         response.status_code = 400
-        response.content = 'bad request'
+        response.content = toJson({success: False, error: 'bad request'})
         return response
     user = User.objects.filter(user_name=username, password=password)
     if user.exists() == False:
-        response.content = 'login fail: user not exists or password wrong'
+        response.content = toJson({
+            success: False,
+            error: 'login fail: user not exists or password wrong'
+        })
         return response
     user = (list(user))[0]
-    response.content = 'login success'
+    response.content = toJson({success: True})
     return response
