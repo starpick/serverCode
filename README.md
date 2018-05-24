@@ -121,6 +121,10 @@
 
    1. 上传 entry 信息：
 
+      post：`http://127.0.0.1:8000/starpick/upload_entry`
+
+      需以表单形式提交以下信息：
+
       ```json
       {
           "token": "token",
@@ -140,6 +144,8 @@
 
    2. 上传 pick 信息
 
+      Post: `http://127.0.0.1:8000/starpick/upload_pick`
+
       包括 tag 信息和 pick 具体信息
 
       请求信息：
@@ -150,7 +156,6 @@
       {
           "token": "token..",
           "entryId": "id",
-          ...
       }
       ```
 
