@@ -1,6 +1,8 @@
 
 
-## 第一阶段
+[TOC]
+
+## part 1
 
 1. 搭建 Python Django 后端框架
 
@@ -100,4 +102,77 @@
 
    ​
 
-   ​
+## part 2
+
+1. 在用户注册成功或登录成功后给用户返回一个 token 作为用户标识
+
+   返回格式：
+
+   ```json
+   {
+       "success": True,
+       "token": token...
+   }
+   ```
+
+   客户端存储该标识，待向服务端发送请求时使用
+
+2. 用户上传一个 entry 需要依次执行以下几个步骤：
+
+   1. 上传 entry 信息：
+
+      ```json
+      {
+          "token": token,
+          "picture": picture,
+          "description": description
+      }
+      ```
+
+      成功上传 entry 信息后，服务端返回成功信息和 entry id
+
+      ```json
+      {
+          "success": True,
+          "entryId": id
+      }
+      ```
+
+   2. 上传 pick 信息
+
+      包括 tag 信息和 pick 具体信息
+
+      请求信息：
+
+      会判断 entryId 是否属于 token 所代表的用户，否则返回错误
+
+      ```json
+      {
+          "token": token,
+          "entryId": id,
+          ...
+      }
+      ```
+
+      上传pic需要提供的信息还有：
+
+      ```
+      category_key = 'category'
+      brand_key = 'brand'
+      idolName_key = 'idolName'
+      price_key = 'price'
+      officialLink_key = 'officialLink'
+      size_key = 'size'
+      ```
+
+      同时提供tag信息，只提供一个tag信息：
+
+      ```
+      tagX = Info['tagX']
+      tagY = Info['tagY']
+      tagContent = Info['tagContent']
+      ```
+
+   3. tag
+
+      目前是tag 和 pick 一起上传，可考虑获取 entryid 和 pickid 后，将tag单独上传这种方法
