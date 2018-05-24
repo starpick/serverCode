@@ -110,8 +110,8 @@
 
    ```json
    {
-       "success": True,
-       "token": token...
+       "success": "True",
+       "token": "token..."
    }
    ```
 
@@ -123,9 +123,9 @@
 
       ```json
       {
-          "token": token,
-          "picture": picture,
-          "description": description
+          "token": "token",
+          "picture": "picture",
+          "description": "description"
       }
       ```
 
@@ -133,8 +133,8 @@
 
       ```json
       {
-          "success": True,
-          "entryId": id
+          "success": "True",
+          "entryId": "id"
       }
       ```
 
@@ -148,8 +148,8 @@
 
       ```json
       {
-          "token": token,
-          "entryId": id,
+          "token": "token..",
+          "entryId": "id",
           ...
       }
       ```
