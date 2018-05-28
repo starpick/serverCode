@@ -1,7 +1,19 @@
 from django.core import signing
 from django.contrib.auth.hashers import make_password, check_password
 import json
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
+from ..models import *
+
+# handler 模板
+# def getLikeEntries(request):
+#     Info = getInfo(request)
+#     response = HttpResponse()
+#     try:
+#     except:
+#         return SERVER_ERROR_RES
+
+# ------------------------ key --------------------------
 # 用户基本信息
 user_key = 'user'
 password_key = 'password'
@@ -17,16 +29,6 @@ error = 'error'
 picture_key = 'picture'
 description_key = 'description'
 
-# 用于生成token的信息
-HEADER = {'typ': 'JWP', 'alg': 'default'}
-KEY = 'CHEN_FENG_YAO'
-SALT = 'www.lanou3g.com'
-TIME_OUT = 30 * 60  # 30min
-
-# 保存图片
-PIC_URL = './assets/imgs'
-pic_id = 0
-
 # pick 信息
 category_key = 'category'
 brand_key = 'brand'
@@ -36,6 +38,19 @@ officialLink_key = 'officialLink'
 size_key = 'size'
 # pic = 
 
+# -------------------------------------------------------
+# 保存图片
+PIC_URL = './assets/imgs'
+pic_id = 0
+
+# 用于生成token的信息
+HEADER = {'typ': 'JWP', 'alg': 'default'}
+KEY = 'CHEN_FENG_YAO'
+SALT = 'www.lanou3g.com'
+TIME_OUT = 30 * 60  # 30min
+
+
+# -------------------------------------------------------
 def encrypt(obj):
     # 加密
     value = signing.dumps(obj, key=KEY, salt=SALT)
@@ -59,3 +74,76 @@ def checkPassword(password, hashedPass):
     return check_password(password, hashedPass)
 
 # def saveImg(img):
+def getToken(tokenStr):
+    try:
+        token = Token.objects.get(token = tokenStr)
+        return token
+    except:
+        return None
+
+def getInfo(request):
+    '''获取request内容'''
+    if request.method == 'GET':
+        return request.GET
+    if request.method == 'POST':
+        return request.POST
+    return None
+
+# ----------------------RESPONSE------------------------------
+SERVER_ERROR_RES = HttpResponse()
+SERVER_ERROR_RES.content = toJson({
+    success: False,
+    error: 'server error'
+})
+SERVER_ERROR_RES.status_code = 500
+
+ERR_TOKEN_RES = HttpResponse()
+ERR_TOKEN_RES.content = {success: False, error: 'invalid token'}
+
+TOKEN_ENTRY_ERR_RES = HttpResponse()
+TOKEN_ENTRY_ERR_RES.content = toJson({
+    success: False,
+    error: 'token and entry are not belong to the same user'
+})
+
+UNAUTHORIZE_RES = HttpResponse()
+UNAUTHORIZE_RES.content = toJson({success: False, error: 'unauthorized'})
+
+
+# ------------- get ------------
+def getEntry(entryId):
+    try:
+        entry = Entry.objects.get(id=entryId)
+        entryInfo = {
+            "entryId": entry.id,
+            "picture": entry.picture,
+            "description": entry.descreption
+        }
+        return entryInfo
+    except:
+        return None
+    return 0
+
+def getTag(tag):
+    return {
+        'tagX': tag.x,
+        'tagY': tag.y,
+        'tagContent': tag.content,
+        'entryId': tag.entry.id,
+        'pickId': tag.pick.id
+    }
+
+def getPick(pick):
+    try:
+        return {
+            "category": pick.category,
+            "brand": pick.brand,
+            "idolName": pick.idolName,
+            "price": pick.price,
+            "officialLink": pick.officialLink,
+            "size": pick.size,
+            "pic": pick.pic,
+            "entryId": pick.entry.id
+        }
+    except:
+        return None

@@ -4,12 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .handlerHelp import *
 
-def getToken(tokenStr):
-    tokens = Token.objects.filter(token = tokenStr)
-    if (len(tokens) == 0):
-        return None
-    return tokens[0]
-
 
 @csrf_exempt
 def uploadEntry(request):
@@ -26,9 +20,7 @@ def uploadEntry(request):
         return response
     # token 认证
     token = getToken(tokenStr)
-    if (token == None):
-        response.content = toJson({success: False, error: 'unauthorized'})
-        return response
+    if (token == None): return UNAUTHORIZE_RES
     user = token.user
     newEntry = Entry(user = user, picture = 'http://127.0.0.1:8000/admin/starpick/entry/', descreption = description)
     newEntry.save()
@@ -46,16 +38,11 @@ def uploadPick(request):
     try:
         tokenStr = Info[token_key]
         entryId = Info['entryId']
+
         token = getToken(tokenStr)
-        if (token == None):
-            response.content = {success: False, error: 'invalid token'}
-            return response
+        if (token == None): return UNAUTHORIZE_RES
         entry = Entry.objects.get(id=entryId)
-        if (token.user.id != entry.user.id):
-            response.content = toJson({
-                success: False,
-                error: 'token and entry are not belong to the same user'})
-            return response
+        if (token.user.id != entry.user.id): return TOKEN_ENTRY_ERR_RES
 
         category = Info['category']
         brand = Info['brand']
@@ -77,9 +64,4 @@ def uploadPick(request):
         response.content = toJson({success: True})
         return response
     except:
-        response.content = toJson({
-            success: False,
-            error: 'server error'
-        })
-        response.status_code = 500
-        return response
+        return SERVER_ERROR_RES

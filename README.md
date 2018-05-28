@@ -125,6 +125,8 @@
 
       需以表单形式提交以下信息：
 
+      （picture 先以URL代替，只能是URL格式，以后再整）
+
       ```json
       {
           "token": "token",
@@ -159,7 +161,7 @@
       }
       ```
 
-      上传pic需要提供的信息还有：
+      上传pick需要提供的信息还有：
 
       ```
       category_key = 'category'
@@ -170,7 +172,7 @@
       size_key = 'size'
       ```
 
-      同时提供tag信息，只提供一个tag信息：
+      同时提供tag信息，只提供一个tag信息（pick 和 tag 1对1）：
 
       ```
       tagX = Info['tagX']
@@ -178,6 +180,37 @@
       tagContent = Info['tagContent']
       ```
 
-   3. tag
+3. 点赞（like）
 
-      目前是tag 和 pick 一起上传，可考虑获取 entryid 和 pickid 后，将tag单独上传这种方法
+   1. like
+
+      点赞只需提供两个信息：
+
+      - `token`
+      - `entryId`
+
+   2. dislike
+
+      同上，提供`token`和 `entryId`
+
+4. 获取信息
+
+   1. 获取entry
+
+      提供 `entryId`
+
+      如：`http://127.0.0.1:8000/starpick/get_entry?entryId=9`
+
+   2. 获取 tag
+
+      提供`entryId`
+
+      如：`http://127.0.0.1:8000/starpick/get_tags?entryId=12`
+
+   3. 获取 pick
+
+      提供 `tagId`
+
+      如：`http://127.0.0.1:8000/starpick/get_pick?tagId=10`
+
+      
