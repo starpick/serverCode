@@ -225,4 +225,89 @@
 
       如：`http://127.0.0.1:8000/starpick/get_pick?tagId=10`
 
-      
+## part3
+
+1. 用户点赞（点击爱心）
+
+   `http://127.0.0.1:8000/starpick/like`
+
+   提供：(post get 均可)
+
+   ```json
+   {
+       "token": "...",
+       "entryId": "..."
+   }
+   ```
+
+   如果用户已经“喜欢”过了则无效
+
+2. 用户取消赞
+
+   `http://127.0.0.1:8000/starpick/unlike`
+
+   提供：(post get 均可)
+
+   提供内容同上
+
+   如果用户没有赞过则无效
+
+3. 给定 email，返回用户所有赞的entry
+
+   `http://127.0.0.1:8000/starpick/get_likes`
+
+   ```json
+   {
+      "email": "..."
+   }
+   ```
+
+   每个返回的entry格式如下：
+
+   ```json
+   "entry": [
+           {
+               "entryId": 10,
+               "picture": "http://127.0.0.1:8000/admin/starpick/entry/",
+               "description": "12345678",
+               "tags": [
+                   {
+                       "tagX": 0,
+                       "tagY": 0,
+                       "tagContent": "tagContent",
+                       "entryId": 10,
+                       "pickId": 2
+                   },
+                   {
+                       "tagX": 0,
+                       "tagY": 0,
+                       "tagContent": "tagContent",
+                       "entryId": 10,
+                       "pickId": 3
+                   }
+               ]
+           }
+   ```
+
+4. 给定 email 和 entryId，查询该用户是否赞过该entry
+
+   `http://127.0.0.1:8000/starpick/query_like`
+
+   提供：
+
+   ```json
+   {
+       "email": "...",
+       "entryId": "..."
+   }
+   ```
+
+   返回格式如下：
+
+   `{"success": true, "like": false}`
+
+5. 获取用户发送的所有entry
+
+   提供email：`{"email": "…"}`
+
+   返回格式同上

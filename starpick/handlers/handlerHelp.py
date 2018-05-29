@@ -121,17 +121,39 @@ def getEntry(entryId):
         }
         return entryInfo
     except:
+        print('error in getEntry')
         return None
-    return 0
 
 def getTag(tag):
-    return {
-        'tagX': tag.x,
-        'tagY': tag.y,
-        'tagContent': tag.content,
-        'entryId': tag.entry.id,
-        'pickId': tag.pick.id
-    }
+    try:
+        return {
+            'tagX': tag.x,
+            'tagY': tag.y,
+            'tagContent': tag.content,
+            'entryId': tag.entry.id,
+            'pickId': tag.pick.id
+        }
+    except:
+        print('error in getTag')
+        return None
+
+def getTagAndEntry(entryId):
+    try:
+        entry = Entry.objects.get(id=entryId)
+        tagList = []
+        tags = entry.tags.all()
+        for i in range(0, len(tags)):
+            tagList.append(getTag(tags[i]))
+        entryInfo = {
+            "entryId": entry.id,
+            "picture": entry.picture,
+            "description": entry.descreption,
+            "tags": tagList
+        }
+        return entryInfo
+    except:
+        print('error in getTagAndEntry')
+        return None
 
 def getPick(pick):
     try:

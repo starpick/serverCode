@@ -6,6 +6,7 @@ from .handlerHelp import *
 
 @csrf_exempt
 def like(request):
+    '''添加用户喜欢'''
     Info = getInfo(request)
     response = HttpResponse()
     try:
@@ -54,18 +55,53 @@ def unlike(request):
     except:
         return SERVER_ERROR_RES
 
-
 @csrf_exempt
-def getLikeEntries(request):
+def queryLike(request):
+    '''给定email和entryId，查询email代表的用户是否喜欢该entry'''
+    # 返回 true 或 false
     Info = getInfo(request)
     response = HttpResponse()
     try:
-        tokenStr = Info['token']
-        token = getToken(tokenStr)
-        if (token == None): return UNAUTHORIZE_RES
-        user = token.user
+        email = Info['email']
+        entryId = Info['entryId']
+        try:
+            user = User.objects.get(email=email)
+            entry = Entry.objects.get(id=entryId)
+        except:
+            response.content = toJson({success: False, error: 'unvalid user email or entry'})
+            return response
+        try:
+            like = Like.objects.get(user=user, entry=entry)
+            response.content = toJson({success: True, "like": True})
+        except:
+            response.content = toJson({success: True, "like": False})
+        return response
+    except:
+        return SERVER_ERROR_RES
+
+@csrf_exempt
+def sendLikedEntry(request):
+    '''给定email，返回like entry'''
+    # 给定 email，返回用户所有喜欢的entry
+    Info = getInfo(request)
+    response = HttpResponse()
+    try:
+        email = Info['email']
+        print(email)
+        try:
+            user = User.objects.get(email=email)
+        except:
+            response.content = toJson({success: False, error: 'invalid user'})
+            return response
         likes = user.likes.all()
-        response.content = toJson({success: True, "length": len(likes)})
+        entryList = []
+        for i in range(0, len(likes)):
+            print(likes[i].id)
+            entryList.append(getTagAndEntry(likes[i].entry.id))
+        response.content = toJson({
+            success: True,
+            "entry": entryList
+        })
         return response
     except:
         return SERVER_ERROR_RES

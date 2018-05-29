@@ -61,3 +61,28 @@ def sendPick(request):
         return response
     except:
         return SERVER_ERROR_RES
+
+def sendUserEntry(request):
+    '''发送用户创建的所有 entry'''
+    # 给定 email
+    Info = getInfo(request)
+    response = HttpResponse()
+    try:
+        email = Info['email']
+        print(email)
+        try:
+            user = User.objects.get(email=email)
+        except:
+            response.content = toJson({success: False, error: 'invalid user'})
+            return response
+        entries = user.entry.all()
+        entryList = []
+        for i in range(0, len(entries)):
+            entryList.append(getTagAndEntry(entries[i].id))
+        response.content = toJson({
+            success: True,
+            "entry": entryList
+        })
+        return response
+    except:
+        return SERVER_ERROR_RES
