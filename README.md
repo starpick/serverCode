@@ -62,7 +62,19 @@
 
    需要提交内容：
 
+   注册：
+
    user
+
+   email
+
+   password
+
+   （返回一个token，以此作为标识）
+
+   登录：
+
+   email
 
    password
 
