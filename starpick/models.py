@@ -6,23 +6,31 @@ from django.db import models
 class User(models.Model):
     # 用户基本信息
     def __str__(self):
-        return self.email
+        return self.email + str(self.id)
     user_name = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     # picture 是否作为外键？还是直接保存 URL？
     header = models.URLField()
     
-# class follow(models.Model):
-#     user = models.OneToOneField('User', on_delete=models.CASCADE)
-#     # 如果关注用户被注销？数组
-#     follow = models.TextField()
+class Follow(models.Model):
+    user = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE,
+        related_name='follows'
+    )
+    # 如果关注用户被注销？数组
+    follow = models.ForeignKey(
+        'User',
+        on_delete = models.CASCADE,
+        related_name='followers'
+    )
 
 class Token(models.Model):
     # 用于验证用户身份的token
     token = models.CharField(max_length=500)
     user = models.ForeignKey(
-        'user',
+        'User',
         on_delete = models.CASCADE,
         related_name='token'
     )

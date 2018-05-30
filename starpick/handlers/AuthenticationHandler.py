@@ -66,7 +66,11 @@ def register(request):
     newUser = User(user_name = username, password = makePassword(password), email = email)
     newUser.save()
     token = create_token(newUser)
-    response.content = toJson({success: True, "token": token})
+    response.content = toJson({
+        success: True,
+        "token": token,
+        "id": newUser.id
+    })
     return response
 
 
@@ -104,5 +108,9 @@ def login(request):
         })
         return response
     token = create_token(user)
-    response.content = toJson({success: True, "token": token})
+    response.content = toJson({
+        success: True,
+        "token": token,
+        "id": user.id
+    })
     return response

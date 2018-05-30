@@ -225,7 +225,7 @@
 
       如：`http://127.0.0.1:8000/starpick/get_pick?tagId=10`
 
-## part3
+## part 3
 
 1. 用户点赞（点击爱心）
 
@@ -310,4 +310,63 @@
 
    提供email：`{"email": "…"}`
 
-   返回格式同上
+   返回格式同上上
+
+
+
+## part 4 关注
+
+注：更新注册、登录返回值，除了返回token外，还返回一id字段表示用户的id
+
+如：
+
+```json
+{
+    "success": true,
+    "token": "token",
+    "id": 17
+}
+```
+
+1. 用户关注另一用户
+
+   `http://127.0.0.1:8000/starpick/follow/follow`
+
+   提供:
+
+   ```json
+   {
+       "token": "token",
+       "followerId": "the user id of the followed user"
+   }
+   ```
+
+2. 取关
+
+   提供信息同上
+
+   `http://127.0.0.1:8000/starpick/follow/unfollow`
+
+3. 获得关注的用户列表
+
+   提供id即可，如：`http://127.0.0.1:8000/starpick/follow/getfollowings?id=16`
+
+   返回关注者的userid
+
+   如:
+
+   ```json
+   {
+       "success": true,
+       "follows": [
+           {
+               "userId": 2
+           },
+           {
+               "userId": 8
+           }
+       ]
+   }
+   ```
+
+   

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler
+from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler
 app_name = 'starpick'
 
 urlpatterns = [
@@ -19,4 +19,8 @@ urlpatterns = [
     path('unlike', likeHandler.unlike, name="unlike"),
     path('get_likes', likeHandler.sendLikedEntry, name="get_likes"),
     path('query_like', likeHandler.queryLike, name="query_like"),
+
+    path('follow/follow', followHandler.followUser, name="follow"),
+    path('follow/unfollow', followHandler.unFollowUser, name="unfollow"),
+    path('follow/getfollowings', followHandler.getFollowings, name="getFollowings"),
 ]
