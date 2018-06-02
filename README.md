@@ -372,7 +372,7 @@
 
 
 
-## part5 评论
+## part 5 评论
 
 1. 发送评论
 
@@ -388,16 +388,38 @@
    }
    ```
 
-   成功返回：
+   成功返回 commentId，如：
 
    ```json
    {
        "success": true,
-       "message": "comment success"
+       "commentId": 3
    }
    ```
 
-2. 获取一个entry的所有评论
+2. 删评
+
+   URL：`http://127.0.0.1:8000/starpick/comment/deleteComments`
+
+   提供：
+
+   ```json
+   {
+       "token": "token",
+       "commentId": 0
+   }
+   ```
+
+   返回：
+
+   ```json
+   {
+       "success": true,
+       "message": "delete comment success"
+   }
+   ```
+
+3. 获取一个entry的所有评论
 
    URL: `http://127.0.0.1:8000/starpick/comment/getComments?entryId=12`
 
@@ -412,12 +434,14 @@
            {
                "userid": 14,
                "username": "abc",
-               "content": "jfalk"
+               "content": "jfalk",
+               "commentId": 1
            },
            {
                "userid": 17,
                "username": "abc123",
-               "content": "jfalk"
+               "content": "jfalk",
+               "commentId": 3
            }
        ]
    }

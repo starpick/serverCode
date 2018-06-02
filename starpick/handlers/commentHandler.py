@@ -21,7 +21,31 @@ def makeComment(request):
         comment.save()
         entry.commentnumber += 1
         entry.save()
-        response.content = toJson({success: True, 'message': 'comment success'})
+        response.content = toJson({success: True, 'commentId': comment.id})
+        return response
+    except:
+        return SERVER_ERROR_RES
+
+@csrf_exempt
+def deleteComment(request):
+    '''删除评论'''
+    Info = getInfo(request)
+    response = HttpResponse()
+    try:
+        tokenStr = Info['token']
+        commentId = Info['commentId']
+        token = getToken(tokenStr)
+        if (token == None): return UNAUTHORIZE_RES
+        user = token.user
+        comment = Comment.objects.get(id=commentId)
+        if (comment.user.id != user.id):
+            response.content = toJson({success: False, error: 'unvalid user id'})
+            return response
+        entry = comment.entry
+        comment.delete()
+        entry.commentnumber -= 1
+        entry.save()
+        response.content = toJson({success: True, 'message': 'delete comment success'})
         return response
     except:
         return SERVER_ERROR_RES
@@ -41,7 +65,8 @@ def getComments(request):
             comment = {
                 "userid": user.id,
                 "username": user.user_name,
-                "content": comments[i].content
+                "content": comments[i].content,
+                "commentId": comments[i].id
             }
             commentList.append(comment)
         response.content = toJson({
