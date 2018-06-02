@@ -369,4 +369,79 @@
    }
    ```
 
+
+
+
+## part5 评论
+
+1. 发送评论
+
+   Url: `http://127.0.0.1:8000/starpick/comment/makecomment`
+
+   提供内容：
+
+   ```json
+   {
+       "token": "token...",
+       "entryId": "entryId",
+       "content": "content..."
+   }
+   ```
+
+   成功返回：
+
+   ```json
+   {
+       "success": true,
+       "message": "comment success"
+   }
+   ```
+
+2. 获取一个entry的所有评论
+
+   URL: `http://127.0.0.1:8000/starpick/comment/getComments?entryId=12`
+
+   提供： entryId
+
+   返回类似如下：
+
+   ```json
+   {
+       "success": true,
+       "comments": [
+           {
+               "userid": 14,
+               "username": "abc",
+               "content": "jfalk"
+           },
+           {
+               "userid": 17,
+               "username": "abc123",
+               "content": "jfalk"
+           }
+       ]
+   }
+   ```
+
    
+
+更新：每次请求entry时，同时返回"likenumber"选项，表示该entry的赞数, `commentnumber`表示该entry的评论数
+
+如：
+
+```json
+{
+    "success": true,
+    "entry": [
+        {
+            "entryId": 9,
+            "picture": "http://127.0.0.1:8000/admin/starpick/entry/",
+            "description": "da1hkd@1.cosm",
+            "likenumber": 2,
+            "commentnumber": 0,
+            "tags": []
+        }
+    ]
+}
+```
+

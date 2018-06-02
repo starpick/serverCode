@@ -25,6 +25,8 @@ def like(request):
         except:
             like = Like(user=user, entry=entry)
             like.save()
+            entry.likenumber += 1
+            entry.save()
             response.content = toJson({success: True})
             return response
     except:
@@ -47,6 +49,8 @@ def unlike(request):
         try:
             like = Like.objects.get(user=user, entry=entry)
             like.delete()
+            entry.likenumber -= 1
+            entry.save()
             response.content = toJson({success: True, "message": "unlike success"})
             return response
         except:

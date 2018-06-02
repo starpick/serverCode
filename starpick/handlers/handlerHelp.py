@@ -117,7 +117,8 @@ def getEntry(entryId):
         entryInfo = {
             "entryId": entry.id,
             "picture": entry.picture,
-            "description": entry.descreption
+            "description": entry.descreption,
+            "likenumber": entry.likenumber
         }
         return entryInfo
     except:
@@ -148,6 +149,8 @@ def getTagAndEntry(entryId):
             "entryId": entry.id,
             "picture": entry.picture,
             "description": entry.descreption,
+            "likenumber": entry.likenumber,
+            "commentnumber": entry.commentnumber,
             "tags": tagList
         }
         return entryInfo

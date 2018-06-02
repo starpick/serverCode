@@ -58,6 +58,8 @@ class Entry(models.Model):
     )
     picture = models.URLField(default='')
     descreption = models.TextField()
+    likenumber = models.IntegerField(default=0)
+    commentnumber = models.IntegerField(default=0)
 
 class Pick(models.Model):
     entry = models.ForeignKey(
@@ -90,4 +92,16 @@ class Tag(models.Model):
     y = models.FloatField()
     content = models.CharField(max_length=50)
 
-    
+class Comment(models.Model):
+    # 用户对entry的评论
+    entry = models.ForeignKey(
+        'Entry',
+        on_delete = models.CASCADE,
+        related_name='comments'
+    )
+    user = models.ForeignKey(
+        'User',
+        on_delete = models.CASCADE,
+        related_name='comments'
+    )
+    content = models. TextField()

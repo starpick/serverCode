@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler
+from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler, commentHandler
 app_name = 'starpick'
 
 urlpatterns = [
@@ -23,4 +23,7 @@ urlpatterns = [
     path('follow/follow', followHandler.followUser, name="follow"),
     path('follow/unfollow', followHandler.unFollowUser, name="unfollow"),
     path('follow/getfollowings', followHandler.getFollowings, name="getFollowings"),
+
+    path('comment/makecomment', commentHandler.makeComment, name="makecomment"),
+    path('comment/getComments', commentHandler.getComments, name="getComments")
 ]
