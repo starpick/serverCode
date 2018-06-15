@@ -469,3 +469,11 @@
 }
 ```
 
+
+
+PS:更改：
+
+请求单个pick`get_pick`，给定 pickId
+
+格式：`http://127.0.0.1:8000/starpick/get_pick?pickId=14`
+
