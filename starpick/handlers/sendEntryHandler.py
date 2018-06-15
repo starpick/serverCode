@@ -49,10 +49,8 @@ def sendPick(request):
     if request.method == 'GET': Info = request.GET
     else: Info = request.POST
     try:
-        tagId = Info['tagId']
-        print(tagId)
-        tag = Tag.objects.get(id=tagId)
-        pick = tag.pick
+        pickId = Info['pickId']
+        pick = Pick.objects.get(id=pickId)
         
         response.content = toJson({
             success: True,

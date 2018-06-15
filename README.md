@@ -2,7 +2,7 @@
 
 [TOC]
 
-## part 1
+## part 1 start/register/login
 
 1. 搭建 Python Django 后端框架
 
@@ -114,7 +114,7 @@
 
    ​
 
-## part 2
+## part 2 upload
 
 1. 在用户注册成功或登录成功后给用户返回一个 token 作为用户标识
 
@@ -225,7 +225,7 @@
 
       如：`http://127.0.0.1:8000/starpick/get_pick?tagId=10`
 
-## part 3
+## part 3 like/unlike
 
 1. 用户点赞（点击爱心）
 
