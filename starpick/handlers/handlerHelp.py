@@ -113,15 +113,23 @@ UNAUTHORIZE_RES.content = toJson({success: False, error: 'unauthorized'})
 # ------------- get ------------
 def getEntry(entryId):
     try:
+        print('getentry')
         entry = Entry.objects.get(id=entryId)
+        hashTags = entry.tagHashes.all()
+        print(hashTags)
+        hashList = []
+        for i in range(0, len(hashTags)):
+            hashList.append(hashTags[i].hashName)
         entryInfo = {
             "entryId": entry.id,
             "picture": entry.picture,
             "description": entry.descreption,
-            "likenumber": entry.likenumber
+            "likenumber": entry.likenumber,
+            'hashTags': hashList
         }
         return entryInfo
-    except:
+    except e:
+        print(e.message)
         print('error in getEntry')
         return None
 

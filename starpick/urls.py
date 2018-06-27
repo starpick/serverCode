@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler, commentHandler
+from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler, commentHandler, tagHash
 app_name = 'starpick'
 
 urlpatterns = [
@@ -9,6 +9,9 @@ urlpatterns = [
 
     path('upload_entry', uploadEntryHandler.uploadEntry, name="upload_entry"),
     path('upload_pick', uploadEntryHandler.uploadPick, name="upload_pick"),
+
+    path('upload_hashtag', tagHash.setTag, name="upload_hashtag"),
+    path('get_entrys_by_hash', tagHash.getEntrysByHash, name='getEntrysByHash'),
 
     path('get_pick', sendEntryHandler.sendPick, name="send_pick"),
     path('get_entry', sendEntryHandler.sendEntry, name="sendEntry"),

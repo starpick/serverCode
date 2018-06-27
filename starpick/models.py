@@ -67,13 +67,13 @@ class Pick(models.Model):
         on_delete = models.CASCADE,
         related_name='picks'
     )
-    category = models.CharField(max_length=30)
-    brand = models.CharField(max_length=50)
-    idolName = models.CharField(max_length=50)
-    price = models.CharField(max_length=50)
-    officialLink = models.URLField()
-    size = models.CharField(max_length=20)
-    pic = models.URLField()
+    category = models.CharField(max_length=30, default='none')
+    brand = models.CharField(max_length=50, default='none')
+    idolName = models.CharField(max_length=50, default='none')
+    price = models.CharField(max_length=50, default='none')
+    officialLink = models.URLField(default='none')
+    size = models.CharField(max_length=20, default='none')
+    pic = models.URLField(default='http://none.none')
 
 class Tag(models.Model):
     # 每一张图片上的tags，每一个tag和一个pick相关
@@ -91,6 +91,14 @@ class Tag(models.Model):
     x = models.FloatField()
     y = models.FloatField()
     content = models.CharField(max_length=50)
+
+class TagHash(models.Model):
+    entry = models.ForeignKey(
+        'Entry',
+        on_delete = models.CASCADE,
+        related_name='tagHashes'
+    )
+    hashName = models.CharField(max_length=30)
 
 class Comment(models.Model):
     # 用户对entry的评论

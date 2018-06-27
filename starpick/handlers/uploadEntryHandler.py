@@ -22,7 +22,7 @@ def uploadEntry(request):
     token = getToken(tokenStr)
     if (token == None): return UNAUTHORIZE_RES
     user = token.user
-    newEntry = Entry(user = user, picture = 'http://127.0.0.1:8000/admin/starpick/entry/', descreption = description)
+    newEntry = Entry(user = user, picture = picture, descreption = description)
     newEntry.save()
     response.content = toJson({
         success: True,
@@ -61,7 +61,11 @@ def uploadPick(request):
         tag = Tag(entry=entry, pick=pick, x=tagX, y=tagY, content=tagContent)
         tag.save()
 
-        response.content = toJson({success: True})
+        response.content = toJson({
+            success: True,
+            'pickId': pick.id,
+            'tagId': tag.id
+        })
         return response
     except:
         return SERVER_ERROR_RES

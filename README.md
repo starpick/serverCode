@@ -2,6 +2,10 @@
 
 [TOC]
 
+abc
+
+abc12345
+
 ## part 1 start/register/login
 
 1. 搭建 Python Django 后端框架
@@ -476,4 +480,29 @@ PS:更改：
 请求单个pick`get_pick`，给定 pickId
 
 格式：`http://127.0.0.1:8000/starpick/get_pick?pickId=14`
+
+
+
+## part 6 hashtag
+
+1. 为一个entry设置hashtag
+
+   `http://127.0.0.1:8000/starpick/upload_hashtag`
+
+   提供：`hashName`, `entryId`
+
+2. 获取某一hashTag的所有entry
+
+   `http://127.0.0.1:8000/starpick/get_entrys_by_hash?hashName="wla"`
+
+   提供`hashName`, get post 均可
+
+   返回 `entries`数组
+
+需要进行数据库迁移：
+
+```shel
+python manage.py makemigrations starpick
+python manage.py migrate
+```
 
