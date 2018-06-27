@@ -499,6 +499,30 @@ PS:更改：
 
    返回 `entries`数组
 
+3. 更新：
+
+   每次请求entry时，返回的结果中包含它所有的hashtag:
+
+   如：
+
+   ```json
+   {
+       "success": true,
+       "entry": {
+           "entryId": 10,
+           "picture": "http://127.0.0.1:8000/admin/starpick/entry/",
+           "description": "12345678",
+           "likenumber": 0,
+           "hashTags": [
+               "walala",
+               "wala"
+           ]
+       }
+   }
+   ```
+
+4. 修复了上传图片URL的问题
+
 需要进行数据库迁移：
 
 ```shel
