@@ -674,3 +674,32 @@ python manage.py migrate
 
 单独获取用户信息（提供 userId）：`http://127.0.0.1:8000/starpick/get_user?userId=1`
 
+
+
+## part 9 edit user info
+
+请求url：`http://127.0.0.1:8000/starpick/edit_user_info`
+
+必须提供：`token`
+
+可选提供：
+
+- `username`：更改用户名
+- `header`：更改头像URL
+
+返回：新的userinfo
+
+```json
+{
+    "success": true,
+    "user": {
+        "id": 19,
+        "username": "abcde",
+        "email": "bbb@b.com",
+        "header": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXF-eeBt3oEZ0oEUbIM0DfzhLz_WODr-NTh4U2mpod2kleXq6D"
+    }
+}
+```
+
+
+

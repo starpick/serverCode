@@ -11,7 +11,7 @@ class User(models.Model):
     password = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     # picture 是否作为外键？还是直接保存 URL？
-    header = models.URLField()
+    header = models.URLField(default='http://touxiang.yeree.com/pics/4d/2387125.jpg')
     
 class Follow(models.Model):
     user = models.ForeignKey(
