@@ -17,6 +17,7 @@ urlpatterns = [
     path('get_entry', sendEntryHandler.sendEntry, name="sendEntry"),
     path('get_tags', sendEntryHandler.sendTags, name="sendTags"),
     path('get_user_entries', sendEntryHandler.sendUserEntry, name="sendTags"),
+    path('get_entry_by_likeN', sendEntryHandler.getEntryByLikes, name='getEntryByLikes'),
 
     path('like', likeHandler.like, name="like"),
     path('unlike', likeHandler.unlike, name="unlike"),

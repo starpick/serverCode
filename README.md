@@ -638,3 +638,30 @@ python manage.py migrate
 }
 ```
 
+
+
+## part 8 排行榜
+
+`http://127.0.0.1:8000/starpick/get_entry_by_likeN`
+
+获取按 like 数降序排列的entry，提供可选项numLimit表示希望获得的entry数目，默认为30
+
+在entry返回项中添加 userId 项表明它的发送者：
+
+```json
+{
+    "success": true,
+    "entries": [
+        {
+            "entryId": 9,
+            "picture": "http://127.0.0.1:8000/admin/starpick/entry/",
+            "description": "da1hkd@1.cosm",
+            "likenumber": 2,
+            "dissnumber": 1,
+            "hashTags": [],
+            "userId": 10
+        }
+    ]
+}
+```
+

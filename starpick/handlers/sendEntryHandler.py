@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .handlerHelp import *
 
+@csrf_exempt
 def sendEntry(request):
     '''向客户端发送entry'''
     # 给定entryId
@@ -19,6 +20,7 @@ def sendEntry(request):
     except:
         return SERVER_ERROR_RES
 
+@csrf_exempt
 def sendTags(request):
     '''向客户端发送tags'''
     # 给定entryId
@@ -41,7 +43,7 @@ def sendTags(request):
     except:
         return SERVER_ERROR_RES
 
-
+@csrf_exempt
 def sendPick(request):
     # 给定 tagID，查询 pick
     # 使用get方法：http://127.0.0.1:8000/starpick/send_pick?tagId=3
@@ -60,6 +62,7 @@ def sendPick(request):
     except:
         return SERVER_ERROR_RES
 
+@csrf_exempt
 def sendUserEntry(request):
     '''发送用户创建的所有 entry'''
     # 给定 email
@@ -80,6 +83,27 @@ def sendUserEntry(request):
         response.content = toJson({
             success: True,
             "entry": entryList
+        })
+        return response
+    except:
+        return SERVER_ERROR_RES
+
+@csrf_exempt
+def getEntryByLikes(request):
+    Info = getInfo(request)
+    response = HttpResponse()
+    try:
+        numLimit = 30
+        if 'numLimit' in Info:
+            numLimit = int(Info['numLimit'])
+        entries = Entry.objects.all().order_by('-likenumber')[0:numLimit]
+        entryList = []
+        for entry in entries:
+            print(entry)
+            entryList.append(entryForm(entry))
+        response.content = toJson({
+            success: True,
+            'entries': entryList
         })
         return response
     except:

@@ -111,27 +111,28 @@ UNAUTHORIZE_RES.content = toJson({success: False, error: 'unauthorized'})
 
 
 # ------------- get ------------
+def entryForm(entry):
+    hashTags = entry.tagHashes.all()
+    hashList = []
+    for i in range(0, len(hashTags)):
+        hashList.append(hashTags[i].hashName)
+    entryInfo = {
+        "entryId": entry.id,
+        "picture": entry.picture,
+        "description": entry.descreption,
+        "likenumber": entry.likenumber,
+        "dissnumber": entry.dissnumber,
+        'hashTags': hashList,
+        'userId': entry.user.id
+    }
+    return entryInfo
+
 def getEntry(entryId):
     try:
         print('getentry')
         entry = Entry.objects.get(id=entryId)
-        hashTags = entry.tagHashes.all()
-        print(hashTags)
-        hashList = []
-        for i in range(0, len(hashTags)):
-            hashList.append(hashTags[i].hashName)
-        entryInfo = {
-            "entryId": entry.id,
-            "picture": entry.picture,
-            "description": entry.descreption,
-            "likenumber": entry.likenumber,
-            "dissnumber": entry.dissnumber,
-            'hashTags': hashList
-        }
-        print(entry.dissnumber)
-        return entryInfo
-    except e:
-        print(e.message)
+        return entryForm(entry)
+    except:
         print('error in getEntry')
         return None
 
@@ -155,15 +156,8 @@ def getTagAndEntry(entryId):
         tags = entry.tags.all()
         for i in range(0, len(tags)):
             tagList.append(getTag(tags[i]))
-        entryInfo = {
-            "entryId": entry.id,
-            "picture": entry.picture,
-            "description": entry.descreption,
-            "likenumber": entry.likenumber,
-            "dissnumber": entry.dissnumber,
-            "commentnumber": entry.commentnumber,
-            "tags": tagList
-        }
+        entryInfo = entryForm(entry)
+        entryInfo['tags'] = tagList
         return entryInfo
     except:
         print('error in getTagAndEntry')
