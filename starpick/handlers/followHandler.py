@@ -83,12 +83,34 @@ def getFollowings(request):
         length = len(follows)
         followsList = []
         for i in range(0, length):
-            followsList.append({
-                "userId": follows[i].follow.id
-            })
+            followsList.append(userFrom(follows[i].follow))
         response.content = toJson({
             success: True,
             "follows": followsList
+        })
+        return response
+    except:
+        return SERVER_ERROR_RES
+
+def getFollowers(request):
+    '''获得所有关注自己的用户列表'''
+    info = getInfo(request)
+    response = HttpResponse()
+    try:
+        userId = info['id']
+        try:
+            user = User.objects.get(id=userId)
+        except:
+            response.content = toJson({success: False, error: 'invalid id'})
+            return response
+        followers = user.followers.all()
+        length = len(followers)
+        followerList = []
+        for follower in followers:
+            followerList.append(userFrom(follower.user))
+        response.content = toJson({
+            success: True,
+            "followers": followerList
         })
         return response
     except:

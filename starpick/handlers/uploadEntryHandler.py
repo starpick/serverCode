@@ -44,13 +44,27 @@ def uploadPick(request):
         entry = Entry.objects.get(id=entryId)
         if (token.user.id != entry.user.id): return TOKEN_ENTRY_ERR_RES
 
-        category = Info['category']
-        brand = Info['brand']
-        idolName = Info['idolName']
-        price = Info['price']
-        officialLink = Info['officialLink']
-        size = Info['size']
-        pic = 'https://github.com/starpi'
+        if 'category' in Info: category = Info['category']
+        else: category = 'none'
+
+        if 'brand' in Info : brand = Info['brand']
+        else: brand = 'none'
+
+        if 'idolName' in Info: idolName = Info['idolName']
+        else: idolName = 'none'
+        
+        if 'price' in Info: price = Info['price']
+        else: price = '0'
+        
+        if 'officialLink' in Info: officialLink = Info['officialLink']
+        else: officialLink = 'http://none/none'
+        
+        if 'size' in Info: size = Info['size']
+        else: size = '0'
+        
+        if 'pic' in Info: pic = Info['pic']
+        else: pic = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXF-eeBt3oEZ0oEUbIM0DfzhLz_WODr-NTh4U2mpod2kleXq6D'
+
         pick = Pick(entry=entry, category=category, brand=brand, idolName=idolName,
             price=price, officialLink=officialLink, size=size, pic=pic)
         pick.save()

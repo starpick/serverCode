@@ -186,6 +186,7 @@ abc12345
       price_key = 'price'
       officialLink_key = 'officialLink'
       size_key = 'size'
+      pic = 'pic'
       ```
 
       同时提供tag信息，只提供一个tag信息（pick 和 tag 1对1）：
@@ -703,3 +704,60 @@ python manage.py migrate
 
 
 
+更新：
+
+1. 获取关注者列表时返回信息更新为如下形式：
+
+   ```json
+   {
+       "success": true,
+       "follows": [
+           {
+               "id": 2,
+               "username": "b",
+               "email": "12@a.com",
+               "header": "http://127.0.0.1:8000/admin/starpick/user/add/"
+           },
+           {
+               "id": 8,
+               "username": "abcdfahkj",
+               "email": "a1hkd@1.com",
+               "header": ""
+           }
+       ]
+   }
+   ```
+
+2. 添加 follow 部分内容
+
+   获取所有关注自己的用户列表 URL：http://127.0.0.1:8000/starpick/follow/getfollowers?id=8
+
+   返回：
+
+   ```json
+   {
+       "success": true,
+       "followers": [
+           {
+               "id": 16,
+               "username": "abc",
+               "email": "12345@123.com",
+               "header": ""
+           }
+       ]
+   }
+   ```
+
+3. 上传 pick 时允许
+
+   ```json
+   category_key = 'category'
+   brand_key = 'brand'
+   idolName_key = 'idolName'
+   price_key = 'price'
+   officialLink_key = 'officialLink'
+   size_key = 'size'
+   pic = 'pic'
+   ```
+
+   为可选信息

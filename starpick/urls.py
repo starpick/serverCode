@@ -34,6 +34,7 @@ urlpatterns = [
     path('follow/follow', followHandler.followUser, name="follow"),
     path('follow/unfollow', followHandler.unFollowUser, name="unfollow"),
     path('follow/getfollowings', followHandler.getFollowings, name="getFollowings"),
+    path('follow/getfollowers', followHandler.getFollowers, name='getFollowers'),
 
     path('comment/makecomment', commentHandler.makeComment, name="makecomment"),
     path('comment/getComments', commentHandler.getComments, name="getComments"),
