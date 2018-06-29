@@ -1,11 +1,12 @@
 from django.urls import path
 
-from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler, commentHandler, tagHash, DissHandler
+from .handlers import AuthenticationHandler, uploadEntryHandler, sendEntryHandler, likeHandler, followHandler, commentHandler, tagHash, DissHandler, userHandler
 app_name = 'starpick'
 
 urlpatterns = [
     path('register', AuthenticationHandler.register, name='register'),
     path('login', AuthenticationHandler.login, name="login"),
+    path('get_user', userHandler.getUser, name='getUser'),
 
     path('upload_entry', uploadEntryHandler.uploadEntry, name="upload_entry"),
     path('upload_pick', uploadEntryHandler.uploadPick, name="upload_pick"),

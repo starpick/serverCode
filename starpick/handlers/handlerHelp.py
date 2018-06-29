@@ -111,6 +111,15 @@ UNAUTHORIZE_RES.content = toJson({success: False, error: 'unauthorized'})
 
 
 # ------------- get ------------
+def userFrom(user):
+    userInfo = {
+        'id': user.id,
+        'username': user.user_name,
+        'email': user.email,
+        'header': user.header
+    }
+    return userInfo
+
 def entryForm(entry):
     hashTags = entry.tagHashes.all()
     hashList = []
@@ -123,7 +132,7 @@ def entryForm(entry):
         "likenumber": entry.likenumber,
         "dissnumber": entry.dissnumber,
         'hashTags': hashList,
-        'userId': entry.user.id
+        'user': userFrom(entry.user)
     }
     return entryInfo
 

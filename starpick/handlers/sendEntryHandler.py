@@ -70,7 +70,6 @@ def sendUserEntry(request):
     response = HttpResponse()
     try:
         email = Info['email']
-        print(email)
         try:
             user = User.objects.get(email=email)
         except:
@@ -99,7 +98,6 @@ def getEntryByLikes(request):
         entries = Entry.objects.all().order_by('-likenumber')[0:numLimit]
         entryList = []
         for entry in entries:
-            print(entry)
             entryList.append(entryForm(entry))
         response.content = toJson({
             success: True,

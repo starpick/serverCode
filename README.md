@@ -646,7 +646,7 @@ python manage.py migrate
 
 获取按 like 数降序排列的entry，提供可选项numLimit表示希望获得的entry数目，默认为30
 
-在entry返回项中添加 userId 项表明它的发送者：
+在entry返回项中添加 user 信息 项表明它的发送者：
 
 ```json
 {
@@ -659,9 +659,18 @@ python manage.py migrate
             "likenumber": 2,
             "dissnumber": 1,
             "hashTags": [],
-            "userId": 10
+            "user": {
+                "id": 10,
+                "username": "abcdfahkj",
+                "email": "da1hkd@1.cosm",
+                "header": ""
+            }
         }
     ]
 }
 ```
+
+
+
+单独获取用户信息（提供 userId）：`http://127.0.0.1:8000/starpick/get_user?userId=1`
 
