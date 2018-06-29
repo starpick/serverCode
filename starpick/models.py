@@ -48,6 +48,19 @@ class Like(models.Model):
         related_name='likes'
     )
 
+class Diss(models.Model):
+    # 用户diss内容
+    entry = models.ForeignKey(
+        'Entry',
+        on_delete = models.CASCADE,
+        related_name='diss'
+    )
+    user = models.ForeignKey(
+        'User',
+        on_delete = models.CASCADE,
+        related_name='diss'
+    )
+
 class Entry(models.Model):
     # 上传的每一项，每个 entry 包含多个pick
     user = models.ForeignKey(
@@ -59,6 +72,7 @@ class Entry(models.Model):
     picture = models.URLField(default='')
     descreption = models.TextField()
     likenumber = models.IntegerField(default=0)
+    dissnumber = models.IntegerField(default=0)
     commentnumber = models.IntegerField(default=0)
 
 class Pick(models.Model):

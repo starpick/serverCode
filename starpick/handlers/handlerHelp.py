@@ -125,8 +125,10 @@ def getEntry(entryId):
             "picture": entry.picture,
             "description": entry.descreption,
             "likenumber": entry.likenumber,
+            "dissnumber": entry.dissnumber,
             'hashTags': hashList
         }
+        print(entry.dissnumber)
         return entryInfo
     except e:
         print(e.message)
@@ -158,6 +160,7 @@ def getTagAndEntry(entryId):
             "picture": entry.picture,
             "description": entry.descreption,
             "likenumber": entry.likenumber,
+            "dissnumber": entry.dissnumber,
             "commentnumber": entry.commentnumber,
             "tags": tagList
         }

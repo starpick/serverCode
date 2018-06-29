@@ -530,3 +530,111 @@ python manage.py makemigrations starpick
 python manage.py migrate
 ```
 
+## part 7 diss
+
+1. 用户diss
+
+   `http://127.0.0.1:8000/starpick/diss`
+
+   提供：(post get 均可)
+
+   ```json
+   {
+       "token": "...",
+       "entryId": "..."
+   }
+   ```
+
+   如果用户已经diss过了则无效
+
+2. 用户取消赞
+
+   `http://127.0.0.1:8000/starpick/undiss`
+
+   提供：(post get 均可)
+
+   提供内容同上
+
+   如果用户没有diss过则无效
+
+3. 给定 email，返回用户所有diss的entry
+
+   `http://127.0.0.1:8000/starpick/get_disses`
+
+   ```json
+   {
+      "email": "..."
+   }
+   ```
+
+   每个返回的entry格式如下：
+
+   ```json
+   "entry": [
+           {
+               "entryId": 10,
+               "picture": "http://127.0.0.1:8000/admin/starpick/entry/",
+               "description": "12345678",
+               "tags": [
+                   {
+                       "tagX": 0,
+                       "tagY": 0,
+                       "tagContent": "tagContent",
+                       "entryId": 10,
+                       "pickId": 2
+                   },
+                   {
+                       "tagX": 0,
+                       "tagY": 0,
+                       "tagContent": "tagContent",
+                       "entryId": 10,
+                       "pickId": 3
+                   }
+               ]
+           }
+   ```
+
+4. 给定 email 和 entryId，查询该用户是否diss过该entry
+
+   `http://127.0.0.1:8000/starpick/query_diss`
+
+   提供：
+
+   ```json
+   {
+       "email": "...",
+       "entryId": "..."
+   }
+   ```
+
+   返回格式如下：
+
+   `{"success": true, "diss": false}`
+
+更新 entry 返回内容：添加 `dissnumber`项，如：
+
+```json
+{
+    "success": true,
+    "entry": [
+        {
+            "entryId": 13,
+            "picture": "http://127.0.0.1:8000/admin/starpick/entry/",
+            "description": "entry",
+            "likenumber": 0,
+            "dissnumber": 2,
+            "commentnumber": 0,
+            "tags": [
+                {
+                    "tagX": 1,
+                    "tagY": 2,
+                    "tagContent": "xixi",
+                    "entryId": 13,
+                    "pickId": 13
+                }
+            ]
+        }
+    ]
+}
+```
+
