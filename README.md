@@ -43,7 +43,7 @@ abc12345
 
    由于 Django 的安全机制，在客户端发出 post 请求时，需要进行 CSRF防御机制
 
-   防御机制太麻烦了 cut down 先
+   cut down
 
 6. 运行
 
@@ -91,8 +91,6 @@ abc12345
    postdata.append('user', 'abc')
    postdata.append('password', 'hahaha')
    ```
-
-   为什么不用 json 呢？因为Django 解析起来太麻烦了（不是懒得找api）
 
    服务端返回数据：
 
