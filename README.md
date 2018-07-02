@@ -311,6 +311,8 @@ abc12345
 
 5. 获取用户发送的所有entry
 
+   `http://127.0.0.1:8000/starpick/get_user_entries?email=abc123@123.com`
+
    提供email：`{"email": "…"}`
 
    返回格式同上上

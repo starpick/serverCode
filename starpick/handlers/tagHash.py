@@ -47,7 +47,13 @@ def getEntrysByHash(request):
         print(hashTags)
         for i in range(0, len(hashTags)):
             hashTag = hashTags[i]
-            lists.append(getEntry(hashTag.entry.id))
+            entry = hashTag.entry
+            entryInfo = entryForm(entry)
+            pickList = []
+            for pick in entry.picks.all():
+                pickList.append(getPick(pick))
+            entryInfo['picks'] = pickList
+            lists.append(entryInfo)
         response.content = toJson({
             success: True,
             'entries': lists
