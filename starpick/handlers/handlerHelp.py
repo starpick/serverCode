@@ -182,7 +182,8 @@ def getPick(pick):
             "officialLink": pick.officialLink,
             "size": pick.size,
             "pic": pick.pic,
-            "entryId": pick.entry.id
+            "entryId": pick.entry.id,
+            "pickId": pick.id
         }
     except:
         return None
